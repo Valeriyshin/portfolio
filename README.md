@@ -1,36 +1,106 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Портфолио — Валерий Шин
 
-## Getting Started
+## Описание
 
-First, run the development server:
+Персональный сайт-портфолио frontend-разработчика на Next.js (App Router).
+Публичная часть показывает проекты, навыки и контакты; проекты хранятся в
+Supabase и управляются через собственную админ-панель с авторизацией по
+логину и паролю — новые кейсы добавляются без правки кода.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Страницы
+
+- Главная (`/`) — hero-блок, позиционирование, ключевые навыки, CTA
+- Обо мне (`/about`) — опыт, цели, сильные стороны
+- Проекты (`/projects`) — карточки с поиском и фильтрацией по категориям
+- Детальная страница проекта (`/projects/[slug]`) — динамический маршрут, полный кейс
+- Навыки (`/skills`) — категории Frontend / Backend / Design / Tools / Soft Skills
+- Контакты (`/contacts`) — форма обратной связи с валидацией
+- 404 (`not-found`) — обработка несуществующих маршрутов
+- Вход (`/login`) и Админ-панель (`/admin`) — закрыты авторизацией Supabase
+
+## Функционал
+
+- Список проектов из Supabase через REST API (route handlers)
+- Динамическая страница проекта по slug + SEO-метаданные (`generateMetadata`)
+- Поиск и фильтрация проектов (клиент, `useMemo`)
+- Состояния загрузки (Loader), ошибки (ErrorMessage) и пустого результата (EmptyState)
+- Форма обратной связи: валидация полей, ошибки под полями, success-состояние,
+  сообщения сохраняются в Supabase
+- Админ-панель: создание, редактирование, удаление и скрытие проектов
+- Защита `/admin` через `proxy.ts` (Next.js 16) + RLS-политики в Postgres
+- Анимации: плавное появление секций при скролле (IntersectionObserver), hover-эффекты
+- Адаптивный интерфейс (desktop / tablet / mobile), мобильное меню
+
+## Использованные хуки
+
+| Хук | Где |
+| --- | --- |
+| `useState` | форма контактов, поиск, фильтры, мобильное меню, админ-формы |
+| `useEffect` | загрузка данных в `useFetch`, IntersectionObserver в `useReveal` |
+| `useParams` | детальная страница проекта `/projects/[slug]` |
+| `useRouter` (`router.push` / `back`) | кнопка «назад», редиректы после логина |
+| `useMemo` | фильтрация и поиск списка проектов |
+| `useRef` | ссылка на DOM-элемент в `useReveal` |
+| `useCallback` | стабильный `refetch` в `useFetch` |
+| Кастомные хуки | `useFetch` (данные + loading/error), `useReveal` (анимация появления) |
+
+## Технологии
+
+- Next.js 16 (App Router, Turbopack)
+- TypeScript
+- Tailwind CSS v4
+- Supabase (Postgres, RLS, Auth)
+
+## Запуск проекта
+
+1. Установить зависимости:
+
+   ```bash
+   npm install
+   ```
+
+2. Создать проект в [Supabase](https://supabase.com) и выполнить
+   `supabase/schema.sql` в SQL Editor (создаёт таблицы, RLS-политики и
+   стартовые проекты).
+
+3. Создать пользователя-админа: Supabase Dashboard → Authentication → Users →
+   Add user (email + пароль). Регистрация на сайте не предусмотрена — вход
+   только для этого пользователя.
+
+4. Скопировать `.env.example` в `.env.local` и заполнить ключами из
+   Supabase Dashboard → Settings → API:
+
+   ```
+   NEXT_PUBLIC_SUPABASE_URL=...
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+   ```
+
+5. Запустить дев-сервер:
+
+   ```bash
+   npm run dev
+   ```
+
+Сайт: http://localhost:3000 · Админка: http://localhost:3000/admin
+
+## Структура проекта
+
+```
+app/                 страницы (App Router) и API route handlers
+  api/               REST API: projects CRUD, messages
+  admin/, login/     админ-панель и вход
+  projects/[slug]/   динамическая страница проекта
+components/          переиспользуемые компоненты (Header, ProjectCard, ...)
+hooks/               useFetch, useReveal
+services/            projectsService — запросы к Supabase на сервере
+data/                статические данные навыков
+lib/supabase/        клиенты Supabase (browser / server)
+proxy.ts             защита /admin (бывший middleware)
+supabase/schema.sql  схема БД, RLS, сид
+types/               типы Project, ProjectInput
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Ссылки
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- GitHub: https://github.com/Valeriyshin/portfolio
+- Деплой: —
