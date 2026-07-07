@@ -25,23 +25,23 @@ export default function HomePage() {
         <section className="flex min-h-[70vh] flex-col justify-center py-20">
           <Reveal>
             <p className="mb-4 text-sm font-medium uppercase tracking-widest text-accent">
-              Frontend-разработчик
+              Fullstack-разработчик
             </p>
           </Reveal>
           <Reveal delay={100}>
             <h1 className="max-w-3xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
               Привет, я Валерий.
               <br />
-              Создаю интерфейсы на{" "}
+              Строю продукты на{" "}
               <span className="bg-gradient-to-r from-accent-2 to-accent bg-clip-text text-transparent">
-                React и Next.js
+                React, Next.js и Supabase
               </span>
             </h1>
           </Reveal>
           <Reveal delay={200}>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
-              Разрабатываю рабочие продукты, а не просто вёрстку: от лендингов до
-              CRM-систем с базой данных, авторизацией и админ-панелями.
+              Разрабатываю рабочие продукты целиком: от интерфейса до базы данных,
+              авторизации и админ-панелей — а не только вёрстку.
             </p>
           </Reveal>
           <Reveal delay={300}>

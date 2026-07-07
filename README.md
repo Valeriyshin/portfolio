@@ -2,7 +2,7 @@
 
 ## Описание
 
-Персональный сайт-портфолио frontend-разработчика на Next.js (App Router).
+Персональный сайт-портфолио fullstack-разработчика на Next.js (App Router).
 Публичная часть показывает проекты, навыки и контакты; проекты хранятся в
 Supabase и управляются через собственную админ-панель с авторизацией по
 логину и паролю — новые кейсы добавляются без правки кода.
@@ -59,9 +59,9 @@ Supabase и управляются через собственную админ-
    npm install
    ```
 
-2. Создать проект в [Supabase](https://supabase.com) и выполнить
-   `supabase/schema.sql` в SQL Editor (создаёт таблицы, RLS-политики и
-   стартовые проекты).
+2. Проект Supabase уже создан (`portfolio`, ref `ejflnsbgpkvhcjijyvma`), схема
+   и сид применены через MCP. Для нового окружения — создать проект в
+   [Supabase](https://supabase.com) и выполнить `supabase/schema.sql` в SQL Editor.
 
 3. Создать пользователя-админа: Supabase Dashboard → Authentication → Users →
    Add user (email + пароль). Регистрация на сайте не предусмотрена — вход

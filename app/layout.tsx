@@ -11,12 +11,12 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Валерий Шин — Frontend-разработчик",
+    default: "Валерий Шин — Fullstack-разработчик",
     template: "%s — Валерий Шин",
   },
   description:
-    "Портфолио frontend-разработчика: проекты на React и Next.js, навыки, кейсы и контакты.",
-  keywords: ["frontend", "React", "Next.js", "TypeScript", "портфолио", "разработчик"],
+    "Портфолио fullstack-разработчика: проекты на React, Next.js и Supabase, навыки, кейсы и контакты.",
+  keywords: ["fullstack", "frontend", "React", "Next.js", "Supabase", "TypeScript", "портфолио", "разработчик"],
 };
 
 export default function RootLayout({

@@ -5,13 +5,13 @@ import Reveal from "@/components/Reveal";
 export const metadata: Metadata = {
   title: "Обо мне",
   description:
-    "Кто я, чем занимаюсь и куда развиваюсь: путь в frontend-разработке, образование и цели.",
+    "Кто я, чем занимаюсь и куда развиваюсь: путь в fullstack-разработке, образование и цели.",
 };
 
 const facts = [
   {
     title: "Направление",
-    text: "Frontend-разработка с прицелом на fullstack: интерфейсы на React/Next.js плюс серверная часть на Supabase.",
+    text: "Fullstack-разработка: интерфейсы на React/Next.js плюс серверная часть — база данных, авторизация, API на Supabase.",
   },
   {
     title: "Цель",
@@ -41,8 +41,8 @@ export default function AboutPage() {
         <div className="mt-6 space-y-4 text-lg leading-relaxed text-muted">
           <p>
             Меня зовут <span className="text-foreground">Валерий Шин</span>. Я
-            frontend-разработчик: строю интерфейсы на React и Next.js и собираю
-            вокруг них всё необходимое — данные, авторизацию, API.
+            fullstack-разработчик: строю интерфейсы на React и Next.js и сам же
+            собираю вокруг них всё необходимое — базу данных, авторизацию, API.
           </p>
           <p>
             В разработку пришёл через практику: вместо учебных туториалов почти
