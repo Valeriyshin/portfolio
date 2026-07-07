@@ -24,10 +24,15 @@ export default function Header() {
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <Link
           href="/"
-          className="text-lg font-bold tracking-tight"
+          className="flex items-center gap-2.5"
           onClick={() => setMenuOpen(false)}
         >
-          Валерий<span className="text-accent">.dev</span>
+          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-accent-2 to-accent text-sm font-bold text-slate-950">
+            VS
+          </span>
+          <span className="hidden text-sm font-medium text-muted sm:inline">
+            Валерий Шин
+          </span>
         </Link>
 
         {/* Десктоп-навигация */}
