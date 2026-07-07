@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import ContactForm from "@/components/ContactForm";
 import Reveal from "@/components/Reveal";
+import { getContacts, getSiteContent } from "@/services/contentService";
 
 export const metadata: Metadata = {
   title: "Контакты",
@@ -9,33 +10,14 @@ export const metadata: Metadata = {
     "Свяжитесь со мной: форма обратной связи, GitHub, Telegram и email.",
 };
 
-const contacts = [
-  {
-    label: "GitHub",
-    value: "github.com/Valeriyshin",
-    href: "https://github.com/Valeriyshin",
-  },
-  {
-    label: "Email",
-    value: "valeriy.shin.s@gmail.com",
-    href: "mailto:valeriy.shin.s@gmail.com",
-  },
-  {
-    label: "Telegram",
-    value: "@valeriyshin",
-    href: "https://t.me/valeriyshin",
-  },
-];
+export default async function ContactsPage() {
+  const [contacts, content] = await Promise.all([getContacts(), getSiteContent()]);
 
-export default function ContactsPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
       <Reveal>
         <h1 className="text-3xl font-bold sm:text-4xl">Контакты</h1>
-        <p className="mt-3 max-w-2xl text-muted">
-          Открыт к предложениям о стажировке, первой работе и интересным
-          проектам. Напишите через форму или в любой из каналов.
-        </p>
+        <p className="mt-3 max-w-2xl text-muted">{content.contacts_intro}</p>
       </Reveal>
 
       <div className="mt-12 grid gap-10 lg:grid-cols-[1fr_320px]">
@@ -47,7 +29,7 @@ export default function ContactsPage() {
           <aside className="space-y-3">
             {contacts.map((contact) => (
               <Link
-                key={contact.label}
+                key={contact.id}
                 href={contact.href}
                 target="_blank"
                 rel="noopener noreferrer"

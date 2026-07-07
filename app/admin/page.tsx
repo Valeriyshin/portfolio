@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
 import { useFetch } from "@/hooks/useFetch";
 import type { Project, ProjectInput } from "@/types/project";
 import Button from "@/components/Button";
@@ -10,6 +8,7 @@ import Loader from "@/components/Loader";
 import ErrorMessage from "@/components/ErrorMessage";
 import EmptyState from "@/components/EmptyState";
 import ProjectForm from "./ProjectForm";
+import AdminNav from "./AdminNav";
 
 async function parseError(res: Response): Promise<string> {
   const body = await res.json().catch(() => null);
@@ -17,7 +16,6 @@ async function parseError(res: Response): Promise<string> {
 }
 
 export default function AdminPage() {
-  const router = useRouter();
   const { data: projects, loading, error, refetch } =
     useFetch<Project[]>("/api/projects?all=1");
 
@@ -69,28 +67,18 @@ export default function AdminPage() {
     }
   }
 
-  async function handleLogout() {
-    const supabase = createClient();
-    await supabase.auth.signOut();
-    router.push("/login");
-    router.refresh();
-  }
-
   return (
     <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
+      <AdminNav />
+
       <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold">Админ-панель</h1>
+          <h1 className="text-2xl font-bold">Проекты</h1>
           <p className="mt-1 text-sm text-muted">
             Управление проектами портфолио
           </p>
         </div>
-        <div className="flex gap-3">
-          <Button onClick={() => setEditing("new")}>+ Добавить проект</Button>
-          <Button variant="ghost" onClick={handleLogout}>
-            Выйти
-          </Button>
-        </div>
+        <Button onClick={() => setEditing("new")}>+ Добавить проект</Button>
       </div>
 
       {editing !== null && (

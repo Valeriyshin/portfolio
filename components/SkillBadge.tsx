@@ -1,23 +1,23 @@
-import { LEVEL_VALUE, type Skill } from "@/data/skills";
+import type { Skill } from "@/types/content";
 
 export default function SkillBadge({ skill }: { skill: Skill }) {
   return (
     <div className="rounded-lg border border-line bg-surface p-4 transition-colors hover:border-accent/40">
       <div className="mb-2 flex items-center justify-between gap-3">
         <span className="text-sm font-medium">{skill.name}</span>
-        <span className="shrink-0 text-xs text-muted">{skill.level}</span>
+        <span className="shrink-0 text-xs text-muted">{skill.level}%</span>
       </div>
       <div
         className="h-1.5 overflow-hidden rounded-full bg-background"
         role="progressbar"
-        aria-valuenow={LEVEL_VALUE[skill.level]}
+        aria-valuenow={skill.level}
         aria-valuemin={0}
         aria-valuemax={100}
-        aria-label={`${skill.name}: ${skill.level}`}
+        aria-label={`${skill.name}: ${skill.level}%`}
       >
         <div
           className="h-full rounded-full bg-gradient-to-r from-accent-2 to-accent transition-all duration-700"
-          style={{ width: `${LEVEL_VALUE[skill.level]}%` }}
+          style={{ width: `${skill.level}%` }}
         />
       </div>
     </div>

@@ -1,5 +1,6 @@
 import Button from "@/components/Button";
 import Reveal from "@/components/Reveal";
+import { getSiteContent } from "@/services/contentService";
 
 const highlights = [
   { value: "React / Next.js", label: "основной стек" },
@@ -17,7 +18,24 @@ const keySkills = [
   "Git",
 ];
 
-export default function HomePage() {
+/** Оборачивает подстроку highlight внутри title в градиентный span */
+function renderTitle(title: string, highlight: string) {
+  if (!highlight || !title.includes(highlight)) return title;
+  const [before, after] = title.split(highlight);
+  return (
+    <>
+      {before}
+      <span className="bg-gradient-to-r from-accent-2 to-accent bg-clip-text text-transparent">
+        {highlight}
+      </span>
+      {after}
+    </>
+  );
+}
+
+export default async function HomePage() {
+  const content = await getSiteContent();
+
   return (
     <div className="hero-glow">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -25,23 +43,17 @@ export default function HomePage() {
         <section className="flex min-h-[70vh] flex-col justify-center py-20">
           <Reveal>
             <p className="mb-4 text-sm font-medium uppercase tracking-widest text-accent">
-              Fullstack-разработчик
+              {content.hero_eyebrow}
             </p>
           </Reveal>
           <Reveal delay={100}>
             <h1 className="max-w-3xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-              Привет, я Валерий.
-              <br />
-              Строю продукты на{" "}
-              <span className="bg-gradient-to-r from-accent-2 to-accent bg-clip-text text-transparent">
-                React, Next.js и Supabase
-              </span>
+              {renderTitle(content.hero_title, content.hero_highlight)}
             </h1>
           </Reveal>
           <Reveal delay={200}>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
-              Разрабатываю рабочие продукты целиком: от интерфейса до базы данных,
-              авторизации и админ-панелей — а не только вёрстку.
+              {content.hero_subtitle}
             </p>
           </Reveal>
           <Reveal delay={300}>

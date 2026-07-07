@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Button from "@/components/Button";
 import Reveal from "@/components/Reveal";
+import { getSiteContent } from "@/services/contentService";
 
 export const metadata: Metadata = {
   title: "Обо мне",
@@ -8,29 +9,10 @@ export const metadata: Metadata = {
     "Кто я, чем занимаюсь и куда развиваюсь: путь в fullstack-разработке, образование и цели.",
 };
 
-const facts = [
-  {
-    title: "Направление",
-    text: "Fullstack-разработка: интерфейсы на React/Next.js плюс серверная часть — база данных, авторизация, API на Supabase.",
-  },
-  {
-    title: "Цель",
-    text: "Первая коммерческая работа или стажировка в команде, где можно расти рядом с опытными разработчиками.",
-  },
-  {
-    title: "Сейчас",
-    text: "Развиваю реальный продукт — платформу языковой школы (лендинг + CRM), параллельно углубляюсь в TypeScript.",
-  },
-];
+export default async function AboutPage() {
+  const content = await getSiteContent();
+  const introParagraphs = content.about_intro.split("\n\n").filter(Boolean);
 
-const strengths = [
-  "Довожу проекты до рабочего состояния, а не до «почти готово»",
-  "Разбираюсь в чужом коде и документации самостоятельно",
-  "Внимателен к деталям интерфейса: отступы, состояния, адаптив",
-  "Умею общаться с заказчиком и переводить задачи в код",
-];
-
-export default function AboutPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
       <Reveal>
@@ -39,22 +21,14 @@ export default function AboutPage() {
 
       <Reveal delay={100}>
         <div className="mt-6 space-y-4 text-lg leading-relaxed text-muted">
-          <p>
-            Меня зовут <span className="text-foreground">Валерий Шин</span>. Я
-            fullstack-разработчик: строю интерфейсы на React и Next.js и сам же
-            собираю вокруг них всё необходимое — базу данных, авторизацию, API.
-          </p>
-          <p>
-            В разработку пришёл через практику: вместо учебных туториалов почти
-            сразу начал делать реальный продукт — платформу для языковой школы,
-            которая заменила школе платную CRM. Это научило главному: код должен
-            решать задачу пользователя, а не просто «работать у меня локально».
-          </p>
+          {introParagraphs.map((paragraph, index) => (
+            <p key={index}>{paragraph}</p>
+          ))}
         </div>
       </Reveal>
 
       <section className="mt-12 grid gap-4 sm:grid-cols-3">
-        {facts.map((fact, index) => (
+        {content.about_facts.map((fact, index) => (
           <Reveal key={fact.title} delay={index * 120}>
             <div className="h-full rounded-xl border border-line bg-surface p-5">
               <h2 className="font-semibold text-accent">{fact.title}</h2>
@@ -69,7 +43,7 @@ export default function AboutPage() {
           <h2 className="text-2xl font-bold">Сильные стороны</h2>
         </Reveal>
         <ul className="mt-5 space-y-3">
-          {strengths.map((item, index) => (
+          {content.about_strengths.map((item, index) => (
             <Reveal key={item} delay={index * 100}>
               <li className="flex items-start gap-3 text-muted">
                 <span className="mt-1 text-accent" aria-hidden>

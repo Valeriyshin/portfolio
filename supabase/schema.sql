@@ -36,11 +36,47 @@ create table if not exists public.messages (
   created_at timestamptz not null default now()
 );
 
+-- Навыки (управляются из админки, уровень — слайдер 0..100)
+create table if not exists public.skills (
+  id uuid primary key default gen_random_uuid(),
+  category text not null check (category in ('Frontend', 'Backend', 'Design', 'Tools', 'Soft Skills')),
+  name text not null,
+  level integer not null default 50 check (level between 0 and 100),
+  sort_order integer not null default 0,
+  created_at timestamptz not null default now()
+);
+
+-- Контакты (ссылки на странице контактов и в футере)
+create table if not exists public.contacts (
+  id uuid primary key default gen_random_uuid(),
+  label text not null,
+  value text not null,
+  href text not null,
+  sort_order integer not null default 0,
+  created_at timestamptz not null default now()
+);
+
+-- Тексты сайта — одна строка-синглтон, редактируется из админки
+create table if not exists public.site_content (
+  id integer primary key default 1 check (id = 1),
+  hero_eyebrow text not null default '',
+  hero_title text not null default '',
+  hero_highlight text not null default '',
+  hero_subtitle text not null default '',
+  about_intro text not null default '',
+  about_facts jsonb not null default '[]',
+  about_strengths text[] not null default '{}',
+  contacts_intro text not null default ''
+);
+
 -- ============================================================
 -- Row Level Security
 -- ============================================================
 alter table public.projects enable row level security;
 alter table public.messages enable row level security;
+alter table public.skills enable row level security;
+alter table public.contacts enable row level security;
+alter table public.site_content enable row level security;
 
 -- Публичное чтение только опубликованных проектов
 create policy "public read published projects"
@@ -77,6 +113,15 @@ create policy "auth read messages"
   on public.messages for select
   to authenticated
   using (true);
+
+create policy "public read skills" on public.skills for select using (true);
+create policy "auth manage skills" on public.skills for all to authenticated using (true) with check (true);
+
+create policy "public read contacts" on public.contacts for select using (true);
+create policy "auth manage contacts" on public.contacts for all to authenticated using (true) with check (true);
+
+create policy "public read site_content" on public.site_content for select using (true);
+create policy "auth update site_content" on public.site_content for update to authenticated using (true) with check (true);
 
 -- ============================================================
 -- Стартовые данные (пример — отредактируйте через админку)
@@ -154,3 +199,55 @@ update public.projects set image_url = 'https://iad.microlink.io/j0fSJ2UkGGQixgd
 update public.projects set image_url = 'https://iad.microlink.io/m6o85_LdMCGZyykvvMg1_vknXnhdbFOoa0AgbPvHKtQuF_O6gKHRDItcEiEHV81AqmG_dR07GSuDvFjpieu5Hw.png' where slug = 'fincouple';
 update public.projects set image_url = 'https://iad.microlink.io/kGuOePKac-N8_99b_RPmYdLgMr7zPbWXX-CpZLYITQMDY4fHVJWZ4qbCIDBcTRq25TBMvkqnoUg7oRBcsmHvsA.png' where slug = 'marketing-agency';
 -- 'portfolio' — добавить скриншот после деплоя на Vercel (пока сайт доступен только локально)
+
+-- ============================================================
+-- Навыки — стартовый набор
+-- ============================================================
+insert into public.skills (category, name, level, sort_order) values
+  ('Frontend', 'HTML / CSS', 75, 1),
+  ('Frontend', 'JavaScript', 75, 2),
+  ('Frontend', 'TypeScript', 90, 3),
+  ('Frontend', 'React', 90, 4),
+  ('Frontend', 'Next.js (App Router)', 90, 5),
+  ('Frontend', 'Tailwind CSS', 90, 6),
+  ('Backend', 'Supabase (Postgres, RLS)', 90, 1),
+  ('Backend', 'REST API / Route Handlers', 75, 2),
+  ('Backend', 'SQL', 50, 3),
+  ('Backend', 'Node.js', 50, 4),
+  ('Design', 'Figma', 50, 1),
+  ('Design', 'Адаптивная вёрстка', 75, 2),
+  ('Design', 'UI-паттерны и типографика', 50, 3),
+  ('Tools', 'Git / GitHub', 75, 1),
+  ('Tools', 'Vite', 50, 2),
+  ('Tools', 'npm', 75, 3),
+  ('Tools', 'VS Code', 75, 4),
+  ('Soft Skills', 'Самостоятельность в задачах', 75, 1),
+  ('Soft Skills', 'Коммуникация с заказчиком', 90, 2),
+  ('Soft Skills', 'Работа с обратной связью', 75, 3),
+  ('Soft Skills', 'Английский (документация)', 50, 4);
+
+-- ============================================================
+-- Контакты — стартовый набор
+-- ============================================================
+insert into public.contacts (label, value, href, sort_order) values
+  ('GitHub', 'github.com/Valeriyshin', 'https://github.com/Valeriyshin', 1),
+  ('Email', 'valeriy.shin.s@gmail.com', 'mailto:valeriy.shin.s@gmail.com', 2),
+  ('Telegram', '@valeriyshin', 'https://t.me/valeriyshin', 3);
+
+-- ============================================================
+-- Тексты сайта — стартовое значение синглтон-строки
+-- ============================================================
+insert into public.site_content
+  (id, hero_eyebrow, hero_title, hero_highlight, hero_subtitle, about_intro, about_facts, about_strengths, contacts_intro)
+values
+  (
+    1,
+    'Fullstack-разработчик',
+    'Привет, я Валерий. Строю продукты на React, Next.js и Supabase',
+    'React, Next.js и Supabase',
+    'Разрабатываю рабочие продукты целиком: от интерфейса до базы данных, авторизации и админ-панелей — а не только вёрстку.',
+    E'Меня зовут Валерий Шин. Я fullstack-разработчик: строю интерфейсы на React и Next.js и сам же собираю вокруг них всё необходимое — базу данных, авторизацию, API.\n\nВ разработку пришёл через практику: вместо учебных туториалов почти сразу начал делать реальный продукт — платформу для языковой школы, которая заменила школе платную CRM. Это научило главному: код должен решать задачу пользователя, а не просто «работать у меня локально».',
+    '[{"title":"Направление","text":"Fullstack-разработка: интерфейсы на React/Next.js плюс серверная часть — база данных, авторизация, API на Supabase."},{"title":"Цель","text":"Первая коммерческая работа или стажировка в команде, где можно расти рядом с опытными разработчиками."},{"title":"Сейчас","text":"Развиваю реальный продукт — платформу языковой школы (лендинг + CRM), параллельно углубляюсь в TypeScript."}]'::jsonb,
+    array['Довожу проекты до рабочего состояния, а не до «почти готово»', 'Разбираюсь в чужом коде и документации самостоятельно', 'Внимателен к деталям интерфейса: отступы, состояния, адаптив', 'Умею общаться с заказчиком и переводить задачи в код'],
+    'Открыт к предложениям о стажировке, первой работе и интересным проектам. Напишите через форму или в любой из каналов.'
+  );

@@ -1,12 +1,9 @@
 import Link from "next/link";
+import { getContacts } from "@/services/contentService";
 
-const socials = [
-  { label: "GitHub", href: "https://github.com/Valeriyshin" },
-  { label: "Email", href: "mailto:valeriy.shin.s@gmail.com" },
-  { label: "Telegram", href: "https://t.me/valeriyshin" },
-];
+export default async function Footer() {
+  const contacts = await getContacts();
 
-export default function Footer() {
   return (
     <footer className="mt-auto border-t border-line">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 py-8 sm:flex-row sm:px-6">
@@ -14,15 +11,15 @@ export default function Footer() {
           © {new Date().getFullYear()} Валерий Шин · Fullstack-разработчик
         </p>
         <nav className="flex gap-5">
-          {socials.map((social) => (
+          {contacts.map((contact) => (
             <Link
-              key={social.label}
-              href={social.href}
+              key={contact.id}
+              href={contact.href}
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm text-muted transition-colors hover:text-accent"
             >
-              {social.label}
+              {contact.label}
             </Link>
           ))}
         </nav>

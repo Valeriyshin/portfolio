@@ -26,8 +26,10 @@ Supabase и управляются через собственную админ-
 - Состояния загрузки (Loader), ошибки (ErrorMessage) и пустого результата (EmptyState)
 - Форма обратной связи: валидация полей, ошибки под полями, success-состояние,
   сообщения сохраняются в Supabase
-- Админ-панель: создание, редактирование, удаление и скрытие проектов
-- Защита `/admin` через `proxy.ts` (Next.js 16) + RLS-политики в Postgres
+- Админ-панель (`/admin`, `/admin/skills`, `/admin/contacts`, `/admin/content`):
+  создание/редактирование/удаление проектов, навыков (уровень — слайдер) и
+  контактов, редактирование текстов главной, «Обо мне» и контактов
+- Защита `/admin/*` через `proxy.ts` (Next.js 16) + RLS-политики в Postgres
 - Анимации: плавное появление секций при скролле (IntersectionObserver), hover-эффекты
 - Адаптивный интерфейс (desktop / tablet / mobile), мобильное меню
 
@@ -87,17 +89,16 @@ Supabase и управляются через собственную админ-
 
 ```
 app/                 страницы (App Router) и API route handlers
-  api/               REST API: projects CRUD, messages
-  admin/, login/     админ-панель и вход
+  api/               REST API: projects/skills/contacts CRUD, content, messages
+  admin/, login/     админ-панель (проекты, навыки, контакты, тексты) и вход
   projects/[slug]/   динамическая страница проекта
 components/          переиспользуемые компоненты (Header, ProjectCard, ...)
 hooks/               useFetch, useReveal
-services/            projectsService — запросы к Supabase на сервере
-data/                статические данные навыков
+services/            projectsService, contentService — запросы к Supabase на сервере
 lib/supabase/        клиенты Supabase (browser / server)
-proxy.ts             защита /admin (бывший middleware)
-supabase/schema.sql  схема БД, RLS, сид
-types/               типы Project, ProjectInput
+proxy.ts             защита /admin/* (бывший middleware)
+supabase/schema.sql  схема БД (projects, skills, contacts, site_content), RLS, сид
+types/               типы Project, Skill, Contact, SiteContent
 ```
 
 ## Ссылки
