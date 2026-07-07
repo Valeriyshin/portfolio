@@ -148,3 +148,9 @@ values
     'frontend',
     4
   );
+
+-- Скриншоты (через api.microlink.io — публичный сервис скриншотов, без ключей)
+update public.projects set image_url = 'https://iad.microlink.io/j0fSJ2UkGGQixgdfhFLucfqi7mRA35L-1d6Nlf8cAY58p89eqvZWpGWS_XNq8oldRrqebvqmGrQbnwd2UFWUyQ.png' where slug = 'aspekt-platform';
+update public.projects set image_url = 'https://iad.microlink.io/m6o85_LdMCGZyykvvMg1_vknXnhdbFOoa0AgbPvHKtQuF_O6gKHRDItcEiEHV81AqmG_dR07GSuDvFjpieu5Hw.png' where slug = 'fincouple';
+update public.projects set image_url = 'https://iad.microlink.io/kGuOePKac-N8_99b_RPmYdLgMr7zPbWXX-CpZLYITQMDY4fHVJWZ4qbCIDBcTRq25TBMvkqnoUg7oRBcsmHvsA.png' where slug = 'marketing-agency';
+-- 'portfolio' — добавить скриншот после деплоя на Vercel (пока сайт доступен только локально)
