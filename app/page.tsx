@@ -56,11 +56,32 @@ export default async function HomePage() {
               {content.hero_subtitle}
             </p>
           </Reveal>
-          <Reveal delay={300}>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Button href="/projects">Смотреть проекты</Button>
-              <Button href="/contacts" variant="outline">
-                Связаться со мной
+        </section>
+
+        {/* Два крыла: разработка и маркетинг */}
+        <section className="grid gap-6 pb-16 sm:grid-cols-2">
+          <Reveal>
+            <div className="flex h-full flex-col rounded-2xl border border-line bg-surface p-8">
+              <span className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-accent-2/10 text-accent-2">
+                {"</>"}
+              </span>
+              <h2 className="text-2xl font-bold">{content.dev_wing_title}</h2>
+              <p className="mt-3 flex-1 text-muted">{content.dev_wing_text}</p>
+              <Button href="/projects" className="mt-6 self-start">
+                Смотреть кейсы разработки
+              </Button>
+            </div>
+          </Reveal>
+
+          <Reveal delay={120}>
+            <div className="flex h-full flex-col rounded-2xl border border-line bg-surface p-8">
+              <span className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 text-accent">
+                ↗
+              </span>
+              <h2 className="text-2xl font-bold">{content.marketing_wing_title}</h2>
+              <p className="mt-3 flex-1 text-muted">{content.marketing_wing_text}</p>
+              <Button href="/marketing" variant="outline" className="mt-6 self-start">
+                Смотреть маркетинг-кейсы
               </Button>
             </div>
           </Reveal>

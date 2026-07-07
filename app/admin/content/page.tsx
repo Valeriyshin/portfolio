@@ -137,6 +137,52 @@ export default function AdminContentPage() {
 
           <section className="rounded-xl border border-line bg-surface p-6">
             <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-accent">
+              Главная — два крыла (Разработка / Маркетинг)
+            </h2>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div>
+                <label className="mb-1 block text-sm text-muted">
+                  Заголовок крыла «Разработка»
+                </label>
+                <input
+                  value={form.dev_wing_title}
+                  onChange={(e) => set("dev_wing_title", e.target.value)}
+                  className={inputClasses}
+                />
+              </div>
+              <div>
+                <label className="mb-1 block text-sm text-muted">
+                  Заголовок крыла «Маркетинг»
+                </label>
+                <input
+                  value={form.marketing_wing_title}
+                  onChange={(e) => set("marketing_wing_title", e.target.value)}
+                  className={inputClasses}
+                />
+              </div>
+              <div>
+                <label className="mb-1 block text-sm text-muted">Текст «Разработка»</label>
+                <textarea
+                  rows={4}
+                  value={form.dev_wing_text}
+                  onChange={(e) => set("dev_wing_text", e.target.value)}
+                  className={`${inputClasses} resize-y`}
+                />
+              </div>
+              <div>
+                <label className="mb-1 block text-sm text-muted">Текст «Маркетинг»</label>
+                <textarea
+                  rows={4}
+                  value={form.marketing_wing_text}
+                  onChange={(e) => set("marketing_wing_text", e.target.value)}
+                  className={`${inputClasses} resize-y`}
+                />
+              </div>
+            </div>
+          </section>
+
+          <section className="rounded-xl border border-line bg-surface p-6">
+            <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-accent">
               Обо мне
             </h2>
             <div className="space-y-4">

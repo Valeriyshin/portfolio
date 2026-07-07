@@ -66,7 +66,36 @@ create table if not exists public.site_content (
   about_intro text not null default '',
   about_facts jsonb not null default '[]',
   about_strengths text[] not null default '{}',
-  contacts_intro text not null default ''
+  contacts_intro text not null default '',
+  dev_wing_title text not null default 'Разработка',
+  dev_wing_text text not null default '',
+  marketing_wing_title text not null default 'Маркетинг',
+  marketing_wing_text text not null default ''
+);
+
+-- Маркетинг-кейсы (Meta/Google/TikTok Ads) — полные (с метриками) и лёгкие (без цифр)
+create table if not exists public.marketing_cases (
+  id uuid primary key default gen_random_uuid(),
+  slug text not null unique,
+  client_name text not null,
+  title text not null,
+  niche text not null default '',
+  channels text[] not null default '{}',
+  short_description text not null default '',
+  description text not null default '',
+  period text not null default '',
+  role text not null default '',
+  budget_spend text not null default '',
+  metrics jsonb not null default '[]',
+  tools text[] not null default '{}',
+  result text not null default '',
+  improvements text not null default '',
+  case_type text not null default 'full' check (case_type in ('full', 'light')),
+  website_url text,
+  image_url text,
+  published boolean not null default true,
+  sort_order integer not null default 0,
+  created_at timestamptz not null default now()
 );
 
 -- ============================================================
@@ -77,6 +106,7 @@ alter table public.messages enable row level security;
 alter table public.skills enable row level security;
 alter table public.contacts enable row level security;
 alter table public.site_content enable row level security;
+alter table public.marketing_cases enable row level security;
 
 -- Публичное чтение только опубликованных проектов
 create policy "public read published projects"
@@ -122,6 +152,10 @@ create policy "auth manage contacts" on public.contacts for all to authenticated
 
 create policy "public read site_content" on public.site_content for select using (true);
 create policy "auth update site_content" on public.site_content for update to authenticated using (true) with check (true);
+
+create policy "public read published marketing cases" on public.marketing_cases for select using (published = true);
+create policy "auth read all marketing cases" on public.marketing_cases for select to authenticated using (true);
+create policy "auth manage marketing cases" on public.marketing_cases for all to authenticated using (true) with check (true);
 
 -- ============================================================
 -- Стартовые данные (пример — отредактируйте через админку)
@@ -238,7 +272,7 @@ insert into public.contacts (label, value, href, sort_order) values
 -- Тексты сайта — стартовое значение синглтон-строки
 -- ============================================================
 insert into public.site_content
-  (id, hero_eyebrow, hero_title, hero_highlight, hero_subtitle, about_intro, about_facts, about_strengths, contacts_intro)
+  (id, hero_eyebrow, hero_title, hero_highlight, hero_subtitle, about_intro, about_facts, about_strengths, contacts_intro, dev_wing_title, dev_wing_text, marketing_wing_title, marketing_wing_text)
 values
   (
     1,
@@ -247,7 +281,158 @@ values
     'React, Next.js и Supabase',
     'Разрабатываю рабочие продукты целиком: от интерфейса до базы данных, авторизации и админ-панелей — а не только вёрстку.',
     E'Меня зовут Валерий Шин. Я fullstack-разработчик: строю интерфейсы на React и Next.js и сам же собираю вокруг них всё необходимое — базу данных, авторизацию, API.\n\nВ разработку пришёл через практику: вместо учебных туториалов почти сразу начал делать реальный продукт — платформу для языковой школы, которая заменила школе платную CRM. Это научило главному: код должен решать задачу пользователя, а не просто «работать у меня локально».',
-    '[{"title":"Направление","text":"Fullstack-разработка: интерфейсы на React/Next.js плюс серверная часть — база данных, авторизация, API на Supabase."},{"title":"Цель","text":"Первая коммерческая работа или стажировка в команде, где можно расти рядом с опытными разработчиками."},{"title":"Сейчас","text":"Развиваю реальный продукт — платформу языковой школы (лендинг + CRM), параллельно углубляюсь в TypeScript."}]'::jsonb,
+    '[{"title":"Направление","text":"Fullstack-разработка: интерфейсы на React/Next.js плюс серверная часть — база данных, авторизация, API на Supabase."},{"title":"Цель","text":"Первая коммерческая работа или стажировка в команде, где можно расти рядом с опытными разработчиками."},{"title":"Сейчас","text":"Развиваю реальный продукт — платформу языковой школы (лендинг + CRM), параллельно углубляюсь в TypeScript."},{"title":"Маркетинг","text":"Digital-маркетолог в BAZIS-A: настраиваю и веду рекламные кампании Meta Ads, Google Ads и TikTok Ads для реального бизнеса."}]'::jsonb,
     array['Довожу проекты до рабочего состояния, а не до «почти готово»', 'Разбираюсь в чужом коде и документации самостоятельно', 'Внимателен к деталям интерфейса: отступы, состояния, адаптив', 'Умею общаться с заказчиком и переводить задачи в код'],
-    'Открыт к предложениям о стажировке, первой работе и интересным проектам. Напишите через форму или в любой из каналов.'
+    'Открыт к предложениям о стажировке, первой работе и интересным проектам. Напишите через форму или в любой из каналов.',
+    'Разработка',
+    'React, Next.js, Supabase — от интерфейса до базы данных и админ-панелей. Смотрите кейсы разработки: от учебного портфолио до CRM языковой школы.',
+    'Маркетинг',
+    'Digital-маркетолог в BAZIS-A: настройка и ведение рекламных кампаний Meta Ads, Google Ads и TikTok Ads. Привожу заявки для реального бизнеса — от языковой школы до фермерского бутика.'
+  );
+
+-- ============================================================
+-- Маркетинг-кейсы — стартовый набор (реальные данные из Meta Ads Manager)
+-- ============================================================
+insert into public.marketing_cases
+  (slug, client_name, title, niche, channels, short_description, description, period, role, budget_spend, metrics, tools, result, improvements, case_type, website_url, published, sort_order)
+values
+  (
+    'aspekt-school-meta-ads',
+    'Aspekt School',
+    'Привлечение учеников через клик-ту-WhatsApp рекламу',
+    'Языковая школа (немецкий, английский, китайский)',
+    array['Meta Ads', 'WhatsApp'],
+    'Настройка и ведение рекламных кампаний в Meta Ads с прямым переходом в WhatsApp, отдельно по каждому языку.',
+    'Своя школа: нужно было получать заявки на пробные уроки без отдела продаж — сразу в WhatsApp преподавателя. Кампании разделены по языкам (немецкий, английский, китайский), чтобы у каждого направления был свой оффер и своя воронка.',
+    'Июнь 2024 — по настоящее время',
+    'Digital-маркетолог',
+    '≈ $5 367 (за всё время)',
+    '[{"label":"Начато диалогов в WhatsApp","value":"≈ 2015"},{"label":"Средняя стоимость диалога","value":"≈ $2.66"},{"label":"Кампаний","value":"14"}]'::jsonb,
+    array['Meta Ads Manager', 'WhatsApp Business', 'Facebook/Instagram Feed'],
+    'Стабильный поток заявок на пробные уроки по трём языкам напрямую в WhatsApp, без дополнительного отдела продаж.',
+    'Добавить отдельные лид-формы и ретаргетинг по тем, кто начал диалог, но не записался.',
+    'full',
+    'https://github.com/Valeriyshin/aspekt-platform',
+    true,
+    1
+  ),
+  (
+    'bahcha-meta-ads',
+    'Бахча',
+    'Заявки и трафик в Instagram для фермерского бутика',
+    'Фермерский бутик (полуфабрикаты и фермерские продукты)',
+    array['Meta Ads', 'WhatsApp'],
+    'Небольшие тестовые кампании с прямым переходом в WhatsApp и трафиком в Instagram-профиль по Алматы.',
+    'Локальный бутик с полуфабрикатами: нужно было проверить каналы продвижения на небольшом бюджете (5–15$/день) и понять, какой формат приносит заявки дешевле.',
+    'Февраль 2026 — по настоящее время',
+    'Digital-маркетолог',
+    '≈ $1 047 (за ~5 месяцев)',
+    '[{"label":"Начато диалогов в WhatsApp","value":"≈ 357"},{"label":"Переходов в Instagram-профиль","value":"≈ 2873"},{"label":"Кампаний","value":"9"}]'::jsonb,
+    array['Meta Ads Manager', 'WhatsApp Business', 'Instagram'],
+    'Дешёвый и предсказуемый поток заявок и переходов в профиль на маленьком бюджете — подтвердили рабочую связку для локального бизнеса.',
+    'Масштабировать бюджет на кампании с лучшей стоимостью диалога, добавить ретаргетинг по посетителям профиля.',
+    'full',
+    null,
+    true,
+    2
+  ),
+  (
+    'raceline',
+    'Raceline',
+    'Продвижение каталога дисков и шин',
+    'Диски и шины',
+    array['Meta Ads'],
+    'Продвижение каталога товаров и брендов дисков/шин через таргетированную рекламу.',
+    '',
+    '',
+    'Digital-маркетолог',
+    '',
+    '[]'::jsonb,
+    array['Meta Ads Manager'],
+    '',
+    '',
+    'light',
+    null,
+    true,
+    3
+  ),
+  (
+    'este',
+    'Este',
+    'Продвижение ресторана в Instagram',
+    'Ресторан',
+    array['Meta Ads', 'SMM'],
+    'Охватные кампании и продвижение постов для ресторана Este.',
+    '',
+    '',
+    'Digital-маркетолог',
+    '',
+    '[]'::jsonb,
+    array['Meta Ads Manager'],
+    '',
+    '',
+    'light',
+    null,
+    true,
+    4
+  ),
+  (
+    'latenightshow',
+    'LateNightShow',
+    'Продвижение ночного клуба',
+    'Клуб',
+    array['Meta Ads', 'SMM'],
+    'Реклама мероприятий и афиш ночного клуба LateNightShow.',
+    '',
+    '',
+    'Digital-маркетолог',
+    '',
+    '[]'::jsonb,
+    array['Meta Ads Manager'],
+    '',
+    '',
+    'light',
+    null,
+    true,
+    5
+  ),
+  (
+    'glamur',
+    'Glamur',
+    'Продвижение ресторана',
+    'Ресторан',
+    array['Meta Ads', 'SMM'],
+    'Таргетированная реклама и продвижение постов для ресторана Glamur.',
+    '',
+    '',
+    'Digital-маркетолог',
+    '',
+    '[]'::jsonb,
+    array['Meta Ads Manager'],
+    '',
+    '',
+    'light',
+    null,
+    true,
+    6
+  ),
+  (
+    'aestetika',
+    'Aestetika',
+    'Продвижение услуг дизайна и ремонта',
+    'Дизайн и ремонт',
+    array['Meta Ads', 'SMM'],
+    'Лидогенерация и продвижение портфолио для студии дизайна и ремонта Aestetika.',
+    '',
+    '',
+    'Digital-маркетолог',
+    '',
+    '[]'::jsonb,
+    array['Meta Ads Manager'],
+    '',
+    '',
+    'light',
+    null,
+    true,
+    7
   );

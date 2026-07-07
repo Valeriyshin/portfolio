@@ -2,17 +2,21 @@
 
 ## Описание
 
-Персональный сайт-портфолио fullstack-разработчика на Next.js (App Router).
-Публичная часть показывает проекты, навыки и контакты; проекты хранятся в
-Supabase и управляются через собственную админ-панель с авторизацией по
-логину и паролю — новые кейсы добавляются без правки кода.
+Персональный сайт: визитка + портфолио + резюме fullstack-разработчика
+и digital-маркетолога на Next.js (App Router). Главная разводит на два
+направления — «Разработка» и «Маркетинг»; весь контент (проекты,
+маркетинг-кейсы, навыки, контакты, тексты) хранится в Supabase и
+управляется через собственную админ-панель — без правки кода.
 
 ## Страницы
 
-- Главная (`/`) — hero-блок, позиционирование, ключевые навыки, CTA
+- Главная (`/`) — hero, два «крыла» (Разработка/Маркетинг), ключевые навыки
 - Обо мне (`/about`) — опыт, цели, сильные стороны
-- Проекты (`/projects`) — карточки с поиском и фильтрацией по категориям
+- Разработка (`/projects`) — кейсы с поиском и фильтрацией по категориям
 - Детальная страница проекта (`/projects/[slug]`) — динамический маршрут, полный кейс
+- Маркетинг (`/marketing`) — кейсы digital-маркетинга (Meta/Google/TikTok Ads):
+  полные кейсы с метриками + лёгкие карточки клиентов без цифр
+- Детальная страница маркетинг-кейса (`/marketing/[slug]`)
 - Навыки (`/skills`) — категории Frontend / Backend / Design / Tools / Soft Skills
 - Контакты (`/contacts`) — форма обратной связи с валидацией
 - 404 (`not-found`) — обработка несуществующих маршрутов
@@ -26,9 +30,10 @@ Supabase и управляются через собственную админ-
 - Состояния загрузки (Loader), ошибки (ErrorMessage) и пустого результата (EmptyState)
 - Форма обратной связи: валидация полей, ошибки под полями, success-состояние,
   сообщения сохраняются в Supabase
-- Админ-панель (`/admin`, `/admin/skills`, `/admin/contacts`, `/admin/content`):
-  создание/редактирование/удаление проектов, навыков (уровень — слайдер) и
-  контактов, редактирование текстов главной, «Обо мне» и контактов
+- Админ-панель (`/admin`, `/admin/marketing`, `/admin/skills`, `/admin/contacts`,
+  `/admin/content`, `/admin/messages`): CRUD проектов, маркетинг-кейсов, навыков
+  (уровень — слайдер), контактов; редактирование текстов главной/about/contacts;
+  просмотр заявок из формы обратной связи
 - Защита `/admin/*` через `proxy.ts` (Next.js 16) + RLS-политики в Postgres
 - Анимации: плавное появление секций при скролле (IntersectionObserver), hover-эффекты
 - Адаптивный интерфейс (desktop / tablet / mobile), мобильное меню
@@ -89,16 +94,17 @@ Supabase и управляются через собственную админ-
 
 ```
 app/                 страницы (App Router) и API route handlers
-  api/               REST API: projects/skills/contacts CRUD, content, messages
-  admin/, login/     админ-панель (проекты, навыки, контакты, тексты) и вход
+  api/               REST API: projects/marketing-cases/skills/contacts CRUD, content, messages
+  admin/, login/     админ-панель (проекты, маркетинг, навыки, контакты, тексты) и вход
   projects/[slug]/   динамическая страница проекта
-components/          переиспользуемые компоненты (Header, ProjectCard, ...)
+  marketing/[slug]/  динамическая страница маркетинг-кейса
+components/          переиспользуемые компоненты (Header, ProjectCard, MarketingCaseCard, ...)
 hooks/               useFetch, useReveal
-services/            projectsService, contentService — запросы к Supabase на сервере
+services/            projectsService, marketingService, contentService — запросы к Supabase
 lib/supabase/        клиенты Supabase (browser / server)
 proxy.ts             защита /admin/* (бывший middleware)
-supabase/schema.sql  схема БД (projects, skills, contacts, site_content), RLS, сид
-types/               типы Project, Skill, Contact, SiteContent
+supabase/schema.sql  схема БД (projects, marketing_cases, skills, contacts, site_content), RLS, сид
+types/               типы Project, MarketingCase, Skill, Contact, SiteContent
 ```
 
 ## Ссылки

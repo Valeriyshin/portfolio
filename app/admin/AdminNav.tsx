@@ -7,6 +7,7 @@ import Button from "@/components/Button";
 
 const tabs = [
   { href: "/admin", label: "Проекты" },
+  { href: "/admin/marketing", label: "Маркетинг" },
   { href: "/admin/skills", label: "Навыки" },
   { href: "/admin/contacts", label: "Контакты" },
   { href: "/admin/content", label: "Тексты сайта" },

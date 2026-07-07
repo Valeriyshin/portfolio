@@ -27,7 +27,7 @@ export default async function AboutPage() {
         </div>
       </Reveal>
 
-      <section className="mt-12 grid gap-4 sm:grid-cols-3">
+      <section className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {content.about_facts.map((fact, index) => (
           <Reveal key={fact.title} delay={index * 120}>
             <div className="h-full rounded-xl border border-line bg-surface p-5">

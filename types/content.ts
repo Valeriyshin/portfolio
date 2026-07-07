@@ -37,6 +37,10 @@ export interface SiteContent {
   about_facts: AboutFact[];
   about_strengths: string[];
   contacts_intro: string;
+  dev_wing_title: string;
+  dev_wing_text: string;
+  marketing_wing_title: string;
+  marketing_wing_text: string;
 }
 
 export type SiteContentInput = Omit<SiteContent, "id">;
