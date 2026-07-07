@@ -101,9 +101,11 @@ export default function AdminContentPage() {
                 />
               </div>
               <div>
-                <label className="mb-1 block text-sm text-muted">Заголовок</label>
+                <label className="mb-1 block text-sm text-muted">
+                  Заголовок (Enter — перенос строки на сайте)
+                </label>
                 <textarea
-                  rows={2}
+                  rows={3}
                   value={form.hero_title}
                   onChange={(e) => set("hero_title", e.target.value)}
                   className={`${inputClasses} resize-y`}
@@ -120,7 +122,9 @@ export default function AdminContentPage() {
                 />
               </div>
               <div>
-                <label className="mb-1 block text-sm text-muted">Подзаголовок</label>
+                <label className="mb-1 block text-sm text-muted">
+                  Подзаголовок (Enter — перенос строки на сайте)
+                </label>
                 <textarea
                   rows={3}
                   value={form.hero_subtitle}

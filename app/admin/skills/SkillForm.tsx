@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import type { Skill, SkillCategory, SkillInput } from "@/types/content";
+import { getSkillLevelLabel } from "@/lib/skillLevel";
 import Button from "@/components/Button";
 
 const categories: SkillCategory[] = ["Frontend", "Backend", "Design", "Tools", "Soft Skills"];
@@ -75,7 +76,9 @@ export default function SkillForm({ skill, onSubmit, onCancel }: SkillFormProps)
         <div className="sm:col-span-2">
           <label className="mb-1 flex items-center justify-between text-sm text-muted">
             <span>Уровень владения</span>
-            <span className="font-medium text-accent">{level}%</span>
+            <span className="font-medium text-accent">
+              {getSkillLevelLabel(level)} · {level}%
+            </span>
           </label>
           <input
             type="range"
@@ -86,6 +89,12 @@ export default function SkillForm({ skill, onSubmit, onCancel }: SkillFormProps)
             onChange={(e) => setLevel(Number(e.target.value))}
             className="w-full accent-[--accent]"
           />
+          <div className="mt-1 flex justify-between text-[11px] text-muted">
+            <span>Изучаю</span>
+            <span>Базовый уровень</span>
+            <span>Уверенно</span>
+            <span>Профессионально</span>
+          </div>
         </div>
 
         <div>

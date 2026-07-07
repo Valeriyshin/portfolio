@@ -30,3 +30,9 @@ export interface ContactMessage {
   subject: string;
   message: string;
 }
+
+/** Сохранённая заявка из формы обратной связи (для просмотра в админке) */
+export interface StoredMessage extends ContactMessage {
+  id: string;
+  created_at: string;
+}

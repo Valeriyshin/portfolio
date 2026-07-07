@@ -10,6 +10,7 @@ const tabs = [
   { href: "/admin/skills", label: "Навыки" },
   { href: "/admin/contacts", label: "Контакты" },
   { href: "/admin/content", label: "Тексты сайта" },
+  { href: "/admin/messages", label: "Заявки" },
 ];
 
 export default function AdminNav() {

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useFetch } from "@/hooks/useFetch";
 import type { Skill, SkillInput } from "@/types/content";
+import { getSkillLevelLabel } from "@/lib/skillLevel";
 import Button from "@/components/Button";
 import Loader from "@/components/Loader";
 import ErrorMessage from "@/components/ErrorMessage";
@@ -116,7 +117,9 @@ export default function AdminSkillsPage() {
                       style={{ width: `${skill.level}%` }}
                     />
                   </div>
-                  <span className="text-xs text-muted">{skill.level}%</span>
+                  <span className="text-xs text-muted">
+                    {getSkillLevelLabel(skill.level)} · {skill.level}%
+                  </span>
                 </div>
               </div>
 

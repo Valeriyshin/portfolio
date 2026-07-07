@@ -4,6 +4,23 @@ import type { ContactMessage } from "@/types/project";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+/** GET /api/messages — список заявок (только админ) */
+export async function GET() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return NextResponse.json({ error: "Не авторизован" }, { status: 401 });
+
+  const { data, error } = await supabase
+    .from("messages")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  return NextResponse.json(data);
+}
+
 /** POST /api/messages — сообщение из формы обратной связи */
 export async function POST(request: NextRequest) {
   const body = (await request.json()) as ContactMessage;

@@ -47,12 +47,12 @@ export default async function HomePage() {
             </p>
           </Reveal>
           <Reveal delay={100}>
-            <h1 className="max-w-3xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+            <h1 className="max-w-3xl whitespace-pre-line text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
               {renderTitle(content.hero_title, content.hero_highlight)}
             </h1>
           </Reveal>
           <Reveal delay={200}>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+            <p className="mt-6 max-w-xl whitespace-pre-line text-lg leading-relaxed text-muted">
               {content.hero_subtitle}
             </p>
           </Reveal>
