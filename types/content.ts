@@ -1,4 +1,10 @@
-export type SkillCategory = "Frontend" | "Backend" | "Design" | "Tools" | "Soft Skills";
+export type SkillCategory =
+  | "Frontend"
+  | "Backend"
+  | "Design"
+  | "Tools"
+  | "Marketing"
+  | "Soft Skills";
 
 export interface Skill {
   id: string;

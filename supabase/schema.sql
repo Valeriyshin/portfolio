@@ -39,7 +39,7 @@ create table if not exists public.messages (
 -- Навыки (управляются из админки, уровень — слайдер 0..100)
 create table if not exists public.skills (
   id uuid primary key default gen_random_uuid(),
-  category text not null check (category in ('Frontend', 'Backend', 'Design', 'Tools', 'Soft Skills')),
+  category text not null check (category in ('Frontend', 'Backend', 'Design', 'Tools', 'Marketing', 'Soft Skills')),
   name text not null,
   level integer not null default 50 check (level between 0 and 100),
   sort_order integer not null default 0,
@@ -255,6 +255,13 @@ insert into public.skills (category, name, level, sort_order) values
   ('Tools', 'Vite', 50, 2),
   ('Tools', 'npm', 75, 3),
   ('Tools', 'VS Code', 75, 4),
+  ('Marketing', 'Meta Ads (Facebook/Instagram)', 90, 1),
+  ('Marketing', 'Лидогенерация и таргетированная реклама', 85, 2),
+  ('Marketing', 'Google Ads', 60, 3),
+  ('Marketing', 'TikTok Ads', 55, 4),
+  ('Marketing', 'SMM и ведение соцсетей', 75, 5),
+  ('Marketing', 'Аналитика рекламных кампаний', 80, 6),
+  ('Marketing', 'WhatsApp Business / автоворонки', 70, 7),
   ('Soft Skills', 'Самостоятельность в задачах', 75, 1),
   ('Soft Skills', 'Коммуникация с заказчиком', 90, 2),
   ('Soft Skills', 'Работа с обратной связью', 75, 3),

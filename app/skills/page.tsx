@@ -7,12 +7,20 @@ import type { Skill, SkillCategory } from "@/types/content";
 export const metadata: Metadata = {
   title: "Навыки",
   description:
-    "Технологии и инструменты: Frontend, Backend, Design, Tools и Soft Skills с честной оценкой уровня.",
+    "Технологии и инструменты разработки и digital-маркетинга с честной оценкой уровня владения.",
 };
 
-const categoryOrder: SkillCategory[] = ["Frontend", "Backend", "Design", "Tools", "Soft Skills"];
+const categoryOrder: SkillCategory[] = [
+  "Frontend",
+  "Marketing",
+  "Backend",
+  "Design",
+  "Tools",
+  "Soft Skills",
+];
 const categoryDescriptions: Record<SkillCategory, string> = {
   Frontend: "Основной стек, на котором строю интерфейсы",
+  Marketing: "Digital-маркетинг: рекламные кабинеты и продвижение для реального бизнеса",
   Backend: "То, что использую для серверной части",
   Design: "Работа с макетами и вниманием к деталям",
   Tools: "Инструменты повседневной работы",

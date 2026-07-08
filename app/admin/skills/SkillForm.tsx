@@ -5,7 +5,14 @@ import type { Skill, SkillCategory, SkillInput } from "@/types/content";
 import { getSkillLevelLabel } from "@/lib/skillLevel";
 import Button from "@/components/Button";
 
-const categories: SkillCategory[] = ["Frontend", "Backend", "Design", "Tools", "Soft Skills"];
+const categories: SkillCategory[] = [
+  "Frontend",
+  "Backend",
+  "Design",
+  "Tools",
+  "Marketing",
+  "Soft Skills",
+];
 
 interface SkillFormProps {
   skill: Skill | null;

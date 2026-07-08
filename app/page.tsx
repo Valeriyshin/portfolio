@@ -6,6 +6,7 @@ const highlights = [
   { value: "React / Next.js", label: "основной стек" },
   { value: "TypeScript", label: "типизация проектов" },
   { value: "Supabase", label: "база данных и авторизация" },
+  { value: "Meta Ads", label: "лидогенерация и таргетинг" },
 ];
 
 const keySkills = [
@@ -16,6 +17,9 @@ const keySkills = [
   "Supabase",
   "REST API",
   "Git",
+  "Meta Ads",
+  "Google Ads",
+  "TikTok Ads",
 ];
 
 /** Оборачивает подстроку highlight внутри title в градиентный span */
@@ -88,7 +92,7 @@ export default async function HomePage() {
         </section>
 
         {/* Ключевые цифры/факты */}
-        <section className="grid gap-4 pb-16 sm:grid-cols-3">
+        <section className="grid gap-4 pb-16 sm:grid-cols-2 lg:grid-cols-4">
           {highlights.map((item, index) => (
             <Reveal key={item.value} delay={index * 120}>
               <div className="rounded-xl border border-line bg-surface/60 p-6">
