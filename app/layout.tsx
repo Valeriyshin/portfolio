@@ -11,12 +11,26 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Валерий Шин — Fullstack-разработчик",
+    default: "Валерий Шин — Fullstack-разработчик и digital-маркетолог",
     template: "%s — Валерий Шин",
   },
   description:
-    "Портфолио fullstack-разработчика: проекты на React, Next.js и Supabase, навыки, кейсы и контакты.",
-  keywords: ["fullstack", "frontend", "React", "Next.js", "Supabase", "TypeScript", "портфолио", "разработчик"],
+    "Разработка на React, Next.js и Supabase + digital-маркетинг (Meta Ads, Google Ads, TikTok Ads): проекты, маркетинг-кейсы, навыки и контакты.",
+  keywords: [
+    "fullstack",
+    "frontend",
+    "React",
+    "Next.js",
+    "Supabase",
+    "TypeScript",
+    "digital-маркетинг",
+    "Meta Ads",
+    "Google Ads",
+    "TikTok Ads",
+    "портфолио",
+    "разработчик",
+    "маркетолог",
+  ],
 };
 
 export default function RootLayout({

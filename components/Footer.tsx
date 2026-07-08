@@ -8,7 +8,7 @@ export default async function Footer() {
     <footer className="mt-auto border-t border-line">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 py-8 sm:flex-row sm:px-6">
         <p className="text-sm text-muted">
-          © {new Date().getFullYear()} Валерий Шин · Fullstack-разработчик
+          © {new Date().getFullYear()} Валерий Шин · Fullstack-разработчик и digital-маркетолог
         </p>
         <nav className="flex gap-5">
           {contacts.map((contact) => (
