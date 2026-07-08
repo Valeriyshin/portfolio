@@ -110,4 +110,4 @@ types/               типы Project, MarketingCase, Skill, Contact, SiteConten
 ## Ссылки
 
 - GitHub: https://github.com/Valeriyshin/portfolio
-- Деплой: —
+- Деплой: https://portfolio-zeta-lyart-20.vercel.app
