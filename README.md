@@ -1,4 +1,4 @@
-# Портфолио — Валерий Шин
+<img width="1893" height="906" alt="image" src="https://github.com/user-attachments/assets/4fbbd5b1-49f5-4c40-b257-be6663bdf3e5" /># Портфолио — Валерий Шин
 
 ## Описание
 
@@ -11,16 +11,26 @@
 ## Страницы
 
 - Главная (`/`) — hero, два «крыла» (Разработка/Маркетинг), ключевые навыки
+- <img width="1893" height="906" alt="image" src="https://github.com/user-attachments/assets/06eefe2c-383c-40b4-b5e7-1657199de927" />
 - Обо мне (`/about`) — опыт, цели, сильные стороны
+- <img width="1895" height="900" alt="image" src="https://github.com/user-attachments/assets/8672fef1-5f45-4fd4-99b6-2b85c6e804e6" />
 - Разработка (`/projects`) — кейсы с поиском и фильтрацией по категориям
+- <img width="1895" height="902" alt="image" src="https://github.com/user-attachments/assets/ffc2d2d1-6598-43c6-8c3d-ddddbcef3430" />
 - Детальная страница проекта (`/projects/[slug]`) — динамический маршрут, полный кейс
+- <img width="1896" height="910" alt="image" src="https://github.com/user-attachments/assets/66eae59a-c600-41c7-b4a2-3e8e5866a147" />
 - Маркетинг (`/marketing`) — кейсы digital-маркетинга (Meta/Google/TikTok Ads):
   полные кейсы с метриками + лёгкие карточки клиентов без цифр
+  <img width="1897" height="907" alt="image" src="https://github.com/user-attachments/assets/7022e84e-5028-4345-9dbd-063bd8cc0938" />
 - Детальная страница маркетинг-кейса (`/marketing/[slug]`)
+- <img width="1896" height="906" alt="image" src="https://github.com/user-attachments/assets/899b95cd-df01-4944-b665-6537acbd6c05" />
 - Навыки (`/skills`) — категории Frontend / Backend / Design / Tools / Soft Skills
+- <img width="1896" height="907" alt="image" src="https://github.com/user-attachments/assets/2f42e9d6-b8e3-4740-9568-9ebe1a8c7f31" />
 - Контакты (`/contacts`) — форма обратной связи с валидацией
+- <img width="1896" height="906" alt="image" src="https://github.com/user-attachments/assets/11eb2d25-f52c-48b9-b97e-b660dc3d79da" />
 - 404 (`not-found`) — обработка несуществующих маршрутов
 - Вход (`/login`) и Админ-панель (`/admin`) — закрыты авторизацией Supabase
+- <img width="1896" height="902" alt="image" src="https://github.com/user-attachments/assets/d72aa0e3-7f59-4bee-b187-157063b3e213" />
+
 
 ## Функционал
 
