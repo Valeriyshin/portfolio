@@ -40,7 +40,7 @@ export default async function MarketingPage() {
             <section className="mt-10">
               <div className="grid gap-6 sm:grid-cols-2">
                 {fullCases.map((item, index) => (
-                  <Reveal key={item.id} delay={(index % 2) * 100}>
+                  <Reveal key={item.id} delay={(index % 2) * 100} className="h-full">
                     <MarketingCaseCard item={item} />
                   </Reveal>
                 ))}
@@ -55,7 +55,7 @@ export default async function MarketingPage() {
               </Reveal>
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {lightCases.map((item, index) => (
-                  <Reveal key={item.id} delay={(index % 3) * 80}>
+                  <Reveal key={item.id} delay={(index % 3) * 80} className="h-full">
                     <MarketingClientCard item={item} />
                   </Reveal>
                 ))}

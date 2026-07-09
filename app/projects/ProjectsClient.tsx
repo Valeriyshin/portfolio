@@ -110,7 +110,7 @@ export default function ProjectsClient() {
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {filtered.map((project, index) => (
-              <Reveal key={project.id} delay={(index % 3) * 100}>
+              <Reveal key={project.id} delay={(index % 3) * 100} className="h-full">
                 <ProjectCard project={project} />
               </Reveal>
             ))}

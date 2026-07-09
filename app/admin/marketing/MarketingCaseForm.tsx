@@ -270,7 +270,9 @@ export default function MarketingCaseForm({ item, onSubmit, onCancel }: Marketin
         </div>
 
         <div className="sm:col-span-2">
-          <label className="mb-1 block text-sm text-muted">Ссылка на скриншот</label>
+          <label className="mb-1 block text-sm text-muted">
+            Ссылка на логотип клиента (квадратный PNG/SVG на прозрачном фоне)
+          </label>
           <input
             type="url"
             value={values.image_url}
