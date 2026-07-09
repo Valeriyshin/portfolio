@@ -255,6 +255,7 @@ insert into public.skills (category, name, level, sort_order) values
   ('Tools', 'Vite', 50, 2),
   ('Tools', 'npm', 75, 3),
   ('Tools', 'VS Code', 75, 4),
+  ('Tools', 'Claude Code / AI-ассистированная разработка', 85, 5),
   ('Marketing', 'Meta Ads (Facebook/Instagram)', 90, 1),
   ('Marketing', 'Лидогенерация и таргетированная реклама', 85, 2),
   ('Marketing', 'Google Ads', 60, 3),
