@@ -261,6 +261,7 @@ insert into public.skills (category, name, level, sort_order) values
   ('Marketing', 'TikTok Ads', 55, 4),
   ('Marketing', 'SMM и ведение соцсетей', 75, 5),
   ('Marketing', 'Аналитика рекламных кампаний', 80, 6),
+  ('Marketing', 'Медиапланирование и стратегия продвижения', 75, 7),
   ('Marketing', 'WhatsApp Business / автоворонки', 70, 7),
   ('Soft Skills', 'Самостоятельность в задачах', 75, 1),
   ('Soft Skills', 'Коммуникация с заказчиком', 90, 2),
@@ -288,13 +289,13 @@ values
     'рекламу, которая приводит клиентов',
     'Fullstack-разработка на React, Next.js и Supabase — и digital-маркетинг: настройка рекламных кампаний Meta Ads, Google Ads и TikTok Ads для реального бизнеса.',
     E'Меня зовут Валерий Шин. Я работаю на стыке разработки и маркетинга: создаю продукты на React и Next.js с базой данных и админкой, а как digital-маркетолог в BAZIS-A настраиваю рекламные кампании Meta Ads, Google Ads и TikTok Ads, которые приводят реальных клиентов.\n\nВ разработку пришёл через практику: вместо учебных туториалов почти сразу начал делать реальный продукт — платформу для языковой школы, которая заменила школе платную CRM. Этот же продукт продвигаю рекламой в Meta Ads — получается замкнутый цикл: сам разрабатываю и сам привожу в него клиентов.',
-    '[{"title":"Разработка","text":"Fullstack: интерфейсы на React/Next.js плюс серверная часть — база данных, авторизация, API на Supabase."},{"title":"Маркетинг","text":"Digital-маркетолог в BAZIS-A: настраиваю и веду рекламные кампании Meta Ads, Google Ads и TikTok Ads для реального бизнеса."},{"title":"Цель","text":"Коммерческая работа или стажировка в команде, где можно расти рядом с опытными разработчиками."},{"title":"Сейчас","text":"Развиваю реальный продукт — платформу языковой школы (сайт + CRM), параллельно углубляюсь в TypeScript."}]'::jsonb,
+    '[{"title":"Разработка","text":"Fullstack: интерфейсы на React/Next.js плюс серверная часть — база данных, авторизация, API на Supabase."},{"title":"Маркетинг","text":"3+ года в digital-маркетинге: сейчас Digital Marketer в BAZIS-A Corp (Meta Ads, Google Ads, аудит performance-кампаний для застройщика), ранее — Aspekt, BrandChef.Marketing."},{"title":"Цель","text":"Коммерческая работа или стажировка в команде, где можно расти рядом с опытными разработчиками."},{"title":"Сейчас","text":"Развиваю реальный продукт — платформу языковой школы (сайт + CRM), параллельно углубляюсь в TypeScript."}]'::jsonb,
     array['Довожу проекты до рабочего состояния, а не до «почти готово»', 'Разбираюсь в чужом коде и документации самостоятельно', 'Внимателен к деталям интерфейса: отступы, состояния, адаптив', 'Умею общаться с заказчиком и переводить задачи в код'],
     'Открыт к предложениям как в разработке, так и в digital-маркетинге — по найму, фрилансу или интересным проектам. Напишите через форму или в любой из каналов.',
     'Разработка',
     'React, Next.js, Supabase — от интерфейса до базы данных и админ-панелей. Смотрите кейсы разработки: от учебного портфолио до CRM языковой школы.',
     'Маркетинг',
-    'Digital-маркетолог в BAZIS-A: настройка и ведение рекламных кампаний Meta Ads, Google Ads и TikTok Ads. Привожу заявки для реального бизнеса — от языковой школы до фермерского бутика.'
+    'Digital Marketer в BAZIS-A Corp: Meta Ads, Google Ads, аудит performance-кампаний. 3+ года опыта — от запуска онлайн-школы с нуля (Aspekt) до клиентов агентства BrandChef.Marketing в разных нишах.'
   );
 
 -- ============================================================
@@ -444,8 +445,59 @@ values
     7
   );
 
--- Логотипы клиентов (Facebook Page picture / favicon сайта — публичные, без ключей)
-update public.marketing_cases set image_url = 'https://graph.facebook.com/121784497683902/picture?type=square&width=200&height=200' where slug = 'aspekt-school-meta-ads';
-update public.marketing_cases set image_url = 'https://graph.facebook.com/115842138103950/picture?type=square&width=200&height=200' where slug = 'bahcha-meta-ads';
-update public.marketing_cases set image_url = 'https://graph.facebook.com/404998946038374/picture?type=square&width=200&height=200' where slug = 'raceline';
--- 'este', 'latenightshow', 'glamur', 'aestetika' — рекламная Facebook-страница не найдена, лого можно добавить вручную через /admin/marketing
+-- Логотипы клиентов — локальные файлы в public/images (загружены пользователем вручную)
+update public.marketing_cases set image_url = '/images/aspekt-logo.png' where slug = 'aspekt-school-meta-ads';
+update public.marketing_cases set image_url = '/images/bahcha-logo.jpg' where slug = 'bahcha-meta-ads';
+update public.marketing_cases set image_url = '/images/raceline-logo.png' where slug = 'raceline';
+update public.marketing_cases set image_url = '/images/este-logo.jpg' where slug = 'este';
+update public.marketing_cases set image_url = '/images/late-night-show-logo.jpg' where slug = 'latenightshow';
+update public.marketing_cases set image_url = '/images/glamur-logo.jpg' where slug = 'glamur';
+update public.marketing_cases set image_url = '/images/aestetika-logo.jpg' where slug = 'aestetika';
+
+-- Клиенты через агентство BrandChef.Marketing (январь–июнь 2024), по данным резюме
+update public.marketing_cases set
+  short_description = 'Продвижение каталога дисков и шин в рамках работы в BrandChef.Marketing (ниша «автобизнес»).',
+  period = 'Январь — июнь 2024 (BrandChef.Marketing)'
+where slug = 'raceline';
+update public.marketing_cases set
+  short_description = 'Таргетированная реклама и креативы для сети ресторанов Este в рамках работы в BrandChef.Marketing.',
+  period = 'Январь — июнь 2024 (BrandChef.Marketing)'
+where slug = 'este';
+update public.marketing_cases set
+  short_description = 'Реклама мероприятий и афиш ночного клуба LateNightShow в рамках работы в BrandChef.Marketing.',
+  period = 'Январь — июнь 2024 (BrandChef.Marketing)'
+where slug = 'latenightshow';
+update public.marketing_cases set
+  short_description = 'Таргетированная реклама и продвижение постов для ресторана Glamur в рамках работы в BrandChef.Marketing.',
+  period = 'Январь — июнь 2024 (BrandChef.Marketing)'
+where slug = 'glamur';
+update public.marketing_cases set
+  short_description = 'Лидогенерация и продвижение портфолио для студии дизайна и ремонта Aestetika в рамках работы в BrandChef.Marketing.',
+  period = 'Январь — июнь 2024 (BrandChef.Marketing)'
+where slug = 'aestetika';
+
+-- Nomad Life — клиент есть, рекламный кабинет пока не подключён к Ads MCP (без метрик)
+insert into public.marketing_cases
+  (slug, client_name, title, niche, channels, short_description, description, period, role, budget_spend, metrics, tools, result, improvements, case_type, website_url, image_url, published, sort_order)
+values
+  (
+    'nomad-life',
+    'Nomad Life',
+    'Продвижение продуктов страхования жизни',
+    'Страхование жизни',
+    array['Meta Ads'],
+    'Таргетированная реклама продуктов страхования жизни.',
+    'Рекламный кабинет клиента пока не подключён к используемому мной инструменту аналитики — точные цифры добавлю, как только появится доступ.',
+    '',
+    'Digital-маркетолог',
+    '',
+    '[]'::jsonb,
+    array['Meta Ads Manager'],
+    '',
+    '',
+    'light',
+    null,
+    '/images/nomad-life-logo.png',
+    true,
+    8
+  );
