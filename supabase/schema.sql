@@ -443,3 +443,9 @@ values
     true,
     7
   );
+
+-- Логотипы клиентов (Facebook Page picture / favicon сайта — публичные, без ключей)
+update public.marketing_cases set image_url = 'https://graph.facebook.com/121784497683902/picture?type=square&width=200&height=200' where slug = 'aspekt-school-meta-ads';
+update public.marketing_cases set image_url = 'https://graph.facebook.com/115842138103950/picture?type=square&width=200&height=200' where slug = 'bahcha-meta-ads';
+update public.marketing_cases set image_url = 'https://graph.facebook.com/404998946038374/picture?type=square&width=200&height=200' where slug = 'raceline';
+-- 'este', 'latenightshow', 'glamur', 'aestetika' — рекламная Facebook-страница не найдена, лого можно добавить вручную через /admin/marketing
