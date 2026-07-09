@@ -117,7 +117,3 @@ supabase/schema.sql  схема БД (projects, marketing_cases, skills, contact
 types/               типы Project, MarketingCase, Skill, Contact, SiteContent
 ```
 
-## Ссылки
-
-- GitHub: https://github.com/Valeriyshin/portfolio
-- Деплой: https://portfolio-zeta-lyart-20.vercel.app
